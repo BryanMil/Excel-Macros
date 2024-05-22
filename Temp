@@ -1,0 +1,183 @@
+Sub Download()
+
+Dim wb As Workbook
+Dim closedWorkbook As Workbook
+Dim wb1 As Workbook
+Dim wb2 As Workbook
+Dim LR As Long
+Dim LR2 As Long
+Dim LR3 As Long
+Dim LR4 As Long
+Dim filefound As String
+Dim fieldbase As String
+Dim K As Integer
+Dim R As Integer
+Dim i As Integer
+
+'Unhide all the sheets for the process
+For Each Ws In Sheets
+Ws.Visible = True
+Next Ws
+
+Set wb = ThisWorkbook
+NewWBName = wb.Sheets("Dev").Range("C25").Value
+Var0 = wb.Sheets("Dev").Range("L8")
+Var1 = wb.Sheets("Dev").Range("L14")
+var4 = wb.Sheets("Dev").Range("H9")
+var5 = wb.Sheets("Dev").Range("H10")
+var6 = wb.Sheets("Dev").Range("L19")
+var7 = wb.Sheets("Dev").Range("L20")
+var8 = wb.Sheets("Dev").Range("L21")
+var9 = wb.Sheets("Dev").Range("L22")
+var10 = wb.Sheets("Dev").Range("L23")
+var11 = wb.Sheets("Dev").Range("L24")
+var12 = wb.Sheets("Dev").Range("L25")
+var13 = wb.Sheets("Dev").Range("L26")
+var14 = wb.Sheets("Dev").Range("L28")
+var15 = wb.Sheets("Dev").Range("L29")
+var16 = wb.Sheets("Dev").Range("L30")
+var17 = wb.Sheets("Dev").Range("L31")
+
+'Used to locate file in certain path
+fldbase = wb.Sheets("Dev").Range("L7").Value
+filefound = Dir(fldbase & "/" & Var0)
+If filefound = "" Then
+   MsgBox (Var) & " last month G.E.M. not found"
+   Exit Sub
+Else
+   Sheets("Dev").Range("L9") = (filefound)
+End If
+
+'Collect Variables
+Var = Sheets("Dev").Range("L10").Value
+
+'Set closed workbook to Var Path and file
+Set closedWorkbook = Workbooks.Open(Var, ReadOnly:=True)
+
+'Create next month file with sheets from last month
+closedWorkbook.Sheets(Array("Fringe Summary", "Allocation", "Inactives", "Carryover", "Payroll Calendar", "Grid", "CheckList")).Copy
+ActiveWorkbook.SaveAs NewWBName
+
+Set wb1 = Workbooks.Open(NewWBName, ReadOnly:=True)
+wb1.Sheets("Fringe Summary").Range("E4") = wb.Sheets("Dev").Range("F7")
+wb1.Sheets("Fringe Summary").Range("A5") = wb.Sheets("Dev").Range("H8")
+wb1.Sheets("Fringe Summary").Range("A6") = wb.Sheets("Dev").Range("H5")
+wb1.Sheets("Fringe Summary").Range("E3") = wb.Sheets("Dev").Range("H6")
+
+
+fldbase = wb.Sheets("Dev").Range("L13").Value
+filefound = Dir(fldbase & "/" & Var1)
+If filefound = "" Then
+   MsgBox (Var) & " Wage Parity Hours not Found"
+   Exit Sub
+Else
+   wb.Sheets("Dev").Range("L15") = (filefound)
+End If
+
+'Collect Variables
+Var2 = wb.Sheets("Dev").Range("L16").Value
+
+'Set closed workbook to Var Path and file
+Set wb2 = Workbooks.Open(Var2, ReadOnly:=True)
+
+wb2.Sheets(var4).Copy After:=wb1.Sheets("Allocation")
+wb2.Sheets(var5).Copy After:=wb1.Sheets(var4)
+
+wb1.Sheets(var4).Activate
+'ActiveSheet.Cells.UnMerge
+
+LR2 = Cells(Rows.Count, 2).End(xlUp).Row
+'wb1.Sheets(var4).Range("C:C").EntireColumn.Insert
+wb1.Sheets(var4).Range("L2") = "=" & var7
+Range("L2").AutoFill Destination:=Range("L2:L" & LR2)
+wb1.Sheets(var4).Range("M2") = var8
+Range("M2").AutoFill Destination:=Range("M2:M" & LR2)
+wb1.Sheets(var4).Range("N2") = "=" & var9
+Range("N2").AutoFill Destination:=Range("N2:N" & LR2)
+wb1.Sheets(var4).Range("O2") = "=" & var10
+Range("O2").AutoFill Destination:=Range("O2:O" & LR2)
+wb1.Sheets(var4).Range("K2") = var11
+Range("K2").AutoFill Destination:=Range("K2:K" & LR2)
+wb1.Sheets(var4).Range("J2") = "=" & var12
+R = wb1.Sheets(var4).Range("J2").Value
+
+wb1.Sheets(var5).Activate
+LR3 = Cells(Rows.Count, 2).End(xlUp).Row
+wb1.Sheets(var5).Range("S3") = "=" & var14
+Range("S3").AutoFill Destination:=Range("S3:S" & LR3)
+wb1.Sheets(var5).Range("T3") = var15
+Range("T3").AutoFill Destination:=Range("T3:T" & LR3)
+wb1.Sheets(var5).Range("U3") = "=" & var16
+Range("U3").AutoFill Destination:=Range("U3:U" & LR3)
+wb1.Sheets(var5).Range("V3") = "=" & var17
+Range("V3").AutoFill Destination:=Range("V3:V" & LR3)
+wb1.Sheets(var5).Range("V3:V" & LR3).Copy
+wb1.Sheets(var5).Range("B3").PasteSpecial xlPasteValues
+wb1.Sheets(var5).Range("S3:V" & LR3).Clear
+
+
+wb1.Sheets("Allocation").Select
+wb1.Sheets("Allocation").Unprotect Password:="123"
+LR = Cells(Rows.Count, 1).End(xlUp).Row
+
+K = 1
+
+For K = 1 To R
+  Worksheets("Allocation").Range("A" & LR + 1).Select
+  ActiveCell.EntireRow.Insert
+  Next K
+
+
+wb1.Sheets(var4).Activate
+
+For i = 2 To LR2
+wb1.Sheets(var4).Activate
+    If Cells(i, "K").Text = "#N/A" And Cells(i, "E").Value <> 0 Then
+    wb1.Sheets("Allocation").Range("A" & LR + 1) = Cells(i, "A").Value
+    wb1.Sheets("Allocation").Range("B" & LR + 1) = Cells(i, "O").Value
+    wb1.Sheets("Allocation").Range("C" & LR + 1) = Cells(i, "D").Value
+    wb1.Sheets("Allocation").Range("D" & LR + 1) = Cells(i, "C").Value
+       
+    LR = LR + 1
+    End If
+Next i
+
+wb1.Sheets("Allocation").Select
+wb1.Sheets("Allocation").Range("G2:G" & LR).ClearContents
+wb1.Sheets("Allocation").Range("G2") = var6
+Range("G2").AutoFill Destination:=Range("G2:G" & LR)
+Range("G2:G" & LR).Copy
+Range("G2").PasteSpecial xlPasteValues
+
+LR4 = Cells(Rows.Count, 5).End(xlUp).Row
+wb1.Sheets("Allocation").Range("E" & LR4 + 1) = "=" & var13
+Range("E" & LR4 + 1).AutoFill Destination:=Range("E" & LR4 + 1 & ":E" & LR)
+Range("E2:E" & LR).Copy
+Range("E2").PasteSpecial xlPasteValues
+Range("H" & LR4).AutoFill Destination:=Range("H" & LR4 & ":H" & LR)
+Range("I" & LR4).AutoFill Destination:=Range("I" & LR4 & ":I" & LR)
+Range("J" & LR4).AutoFill Destination:=Range("J" & LR4 & ":J" & LR)
+Range("K" & LR4).AutoFill Destination:=Range("K" & LR4 & ":K" & LR)
+Range("L" & LR4).AutoFill Destination:=Range("L" & LR4 & ":L" & LR)
+Range("M" & LR4).AutoFill Destination:=Range("M" & LR4 & ":M" & LR)
+Range("N" & LR4).AutoFill Destination:=Range("N" & LR4 & ":N" & LR)
+Range("O" & LR4).AutoFill Destination:=Range("O" & LR4 & ":O" & LR)
+Range("P" & LR4).AutoFill Destination:=Range("P" & LR4 & ":P" & LR)
+Range("Q" & LR4).AutoFill Destination:=Range("Q" & LR4 & ":Q" & LR)
+
+
+wb1.Sheets(var4).Range("K2:O" & LR2).Clear
+
+For i = 2 To LR
+    If Cells(i, "E").Text = "#N/A" Then
+    Rows(i).EntireRow.Interior.Color = RGB(231, 111, 79)
+    End If
+Next i
+
+Value1 = wb1.Sheets(var4).Range("E" & LR2 + 1).Value
+Value2 = wb1.Sheets("Allocation").Range("G" & LR + 2).Value
+
+MsgBox Value1 & "   " & Value2 & " Check For Highlighted Rows"
+
+
+End Sub
