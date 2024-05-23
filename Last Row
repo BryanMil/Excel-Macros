@@ -2,3 +2,9 @@ Dim LR As Long
 
 '' count to last row in column 2
 LR = Cells(Rows.Count, 2).End(xlUp).Row
+
+
+
+''Drop in var on sheet and drag to the last row
+wb1.Sheets("Allocation").Range("V2") = "=" & var21
+Range("V2").AutoFill Destination:=Range("V2:V" & LR5)
