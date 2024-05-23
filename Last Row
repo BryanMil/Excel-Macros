@@ -1,0 +1,4 @@
+Dim LR As Long
+
+'' count to last row in column 2
+LR = Cells(Rows.Count, 2).End(xlUp).Row
