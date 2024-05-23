@@ -1,0 +1,10 @@
+
+
+
+Sub ShowAllRecords()
+  With ActiveSheet.AutoFilter
+    If .FilterMode Then
+      .ShowAllData
+    End If
+  End With
+End Sub
