@@ -1,9 +1,0 @@
-'Find Correct Tab("Sheet") with Wild Card
-For Each sht In closedWorkbook1.Worksheets
-   If sht.Name Like "*Fringe Allocations" Then
-   wb.Sheets("Dev").Range("J12") = sht.Name
-      End If
-Next sht
-
-Var1 = wb.Sheets("Dev").Range("J12").Value
-closedWorkbook1.Sheets(Var1).Select
