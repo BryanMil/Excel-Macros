@@ -12,42 +12,43 @@ Ws.Visible = True
 Next Ws
 
 Set wb = ThisWorkbook
-Var0 = wb.Sheets("Dev").Range("I6")
+Var0 = wb.Sheets("Sheet").Range("I6")
 
 'Used to locate file in certain path folder
-fldbase = Sheets("Dev").Range("I5").Value
+fldbase = Sheets("Sheet").Range("I5").Value
 filefound = Dir(fldbase & "/" & Var0)
 
 If filefound = "" Then
      MsgBox "Community Bridge Fringe Allocation-Final.xlsx not found"
      Exit Sub
 Else
-    Sheets("Dev").Range("I7") = (filefound)
+    Sheets("Sheet").Range("I7") = (filefound)
 End If
+
 'Collect Variables
-Var = Sheets("Dev").Range("I8").Value
-Var1 = Sheets("Dev").Range("F10").Value
-Var2 = Sheets("Dev").Range("F9").Value
-Var3 = Sheets("Dev").Range("E9").Value
-Var4 = Sheets("Dev").Range("E11").Value
-Var5 = Sheets("Dev").Range("E12").Value
-Var6 = Sheets("Dev").Range("E13").Value
-Var7 = Sheets("Dev").Range("E14").Value
+Var = Sheets("Sheet").Range("I8").Value
+Var1 = Sheets("Sheet").Range("F10").Value
+Var2 = Sheets("Sheet").Range("F9").Value
+Var3 = Sheets("Sheet").Range("E9").Value
+Var4 = Sheets("Sheet").Range("E11").Value
+Var5 = Sheets("Sheet").Range("E12").Value
+Var6 = Sheets("Sheet").Range("E13").Value
+Var7 = Sheets("Sheet").Range("E14").Value
 
 'Set closed workbook to Var path and file
 Set closedWorkbook = Workbooks.Open(Var, ReadOnly:=True)
-Sheets("Fringe Allocation").Select
+Sheets("Sheet").Select
 ActiveSheet.AutoFilter.ShowAllData
 LR = Cells(Rows.Count, 1).End(xlUp).Row
 
 'Move selected information from closed workbook to This Workbook
-Sheets("Fringe Allocation").Range("C3:C" & LR).Copy
+Sheets("Sheet").Range("C3:C" & LR).Copy
 wb.Sheets("Sheet1").Range("E2").PasteSpecial Paste:=xlPasteValuesAndNumberFormats
-Sheets("Fringe Allocation").Range("E3:F" & LR).Copy
+Sheets("Sheet").Range("E3:F" & LR).Copy
 wb.Sheets("Sheet1").Range("F2").PasteSpecial Paste:=xlPasteValuesAndNumberFormats
-Sheets("Fringe Allocation").Range("L3:L" & LR).Copy
+Sheets("Sheet").Range("L3:L" & LR).Copy
 wb.Sheets("Sheet1").Range("K2").PasteSpecial Paste:=xlPasteValuesAndNumberFormats
-Sheets("Fringe Allocation").Range("S3:S" & LR).Copy
+Sheets("Sheet").Range("S3:S" & LR).Copy
 wb.Sheets("Sheet1").Range("M2").PasteSpecial Paste:=xlPasteValuesAndNumberFormats
 
 'Finish process of moving constants from Dev page to the Sheet1
@@ -60,9 +61,5 @@ Range("H2:H" & LR2) = Var4
 Range("I2:I" & LR2) = Var5
 Range("J2:J" & LR2) = Var6
 Range("L2:L" & LR2) = Var7
-
-
-
-
 
 End Sub
