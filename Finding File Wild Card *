@@ -1,0 +1,14 @@
+''Used to locate file in certain path folder
+
+'' This is the wildcard *SCA* would pick up first file with SCA in it.
+Var0 = wb.Sheets("Dev").Range("I6")
+
+fldbase = Sheets("Dev").Range("I5").Value
+filefound = Dir(fldbase & "/" & Var0)
+
+If filefound = "" Then
+     MsgBox "Community Bridge Fringe Allocation-Final.xlsx not found"
+     Exit Sub
+Else
+    Sheets("Dev").Range("I7") = (filefound)
+End If
