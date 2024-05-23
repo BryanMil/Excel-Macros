@@ -1,4 +1,6 @@
 ''Used to locate file in certain path folder
+Dim filefound As String
+Dim fldbase As String
 
 '' This is the wildcard *SCA* would pick up first file with SCA in it.
 Var0 = wb.Sheets("Dev").Range("I6")
