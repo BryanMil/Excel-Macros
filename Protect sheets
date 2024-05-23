@@ -1,0 +1,6 @@
+'turn off sheet protect
+If ActiveSheet.ProtectContents = True Then
+wb1.Sheets("Allocation").Unprotect Password:="<password>" 
+
+'turn on sheet protect
+wb1.Sheets("Allocation").Protect Password:="<password>" 
