@@ -1,6 +1,15 @@
-'turn off sheet protect
+'turn off sheet protect if on
 If ActiveSheet.ProtectContents = True Then
 wb1.Sheets("Allocation").Unprotect Password:="<password>" 
+End If
 
 'turn on sheet protect
 wb1.Sheets("Allocation").Protect Password:="<password>" 
+
+
+'turn off sheet protect for all sheets
+For i = 1 To Sheets.Count
+    If Sheets(i).ProtectContents = True Then
+    wb1.Sheets(i).Unprotect Password:="123"
+    End If
+Next i
