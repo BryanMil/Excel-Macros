@@ -1,0 +1,8 @@
+'On Excel sheet
+
+' formula to get current file hierarchy
+=Cell("filename",C5)
+
+'formula to get current file hierarchy minus file name
+=SUBSTITUTE(CELL("filename"), RIGHT(CELL("filename"),LEN(CELL("filename"))-SEARCH("[",CELL("filename"))+1),"")
+
