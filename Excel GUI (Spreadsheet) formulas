@@ -1,13 +1,13 @@
 
-'another'On Excel sheet
+'On Excel sheet
 
-' formula to get current file hierarchy
+'** formula to get current file hierarchy
 =Cell("filename",C5)
 
 '1 formula to get current file hierarchy minus file name
 =SUBSTITUTE(CELL("filename"), RIGHT(CELL("filename"),LEN(CELL("filename"))-SEARCH("[",CELL("filename"))+1),"")
 
-'2 formula to get current file hierarchy minus file name  No Errors (Q12 is the formula to get current file hierarchy results)
+'2 formula to get current file hierarchy minus file name  No Errors (Q12 is the formula to get **current file hierarchy results)
 =IFERROR(LEFT(Q12, FIND(CHAR(1), SUBSTITUTE(Q12, "\", CHAR(1), LEN(Q12)-LEN(SUBSTITUTE(Q12, "\", ""))))),Q12)
 
 
