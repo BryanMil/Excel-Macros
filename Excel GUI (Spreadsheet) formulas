@@ -1,4 +1,5 @@
-'On Excel sheet
+
+'another'On Excel sheet
 
 ' formula to get current file hierarchy
 =Cell("filename",C5)
@@ -12,5 +13,7 @@
 
 ' proper way to use row when unknown
 INDIRECT("B"&ROW()),'MAR 2024 Demographics  '!B:N,13,FALSE)<>"",VLOOKUP(INDIRECT("B"&ROW()),'MAR 2024 Demographics  '!B:N,13,FALSE),VLOOKUP(INDIRECT("B"&ROW()),'MAR 2024 Demographics  '!B:N,12,FALSE))
+'another
+LEFT(INDIRECT("B"&ROW()),FIND("-",INDIRECT("B"&ROW()),1)-1)
 
 
