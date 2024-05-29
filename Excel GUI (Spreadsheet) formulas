@@ -9,3 +9,8 @@
 '2 formula to get current file hierarchy minus file name  No Errors (Q12 is the formula to get current file hierarchy results)
 =IFERROR(LEFT(Q12, FIND(CHAR(1), SUBSTITUTE(Q12, "\", CHAR(1), LEN(Q12)-LEN(SUBSTITUTE(Q12, "\", ""))))),Q12)
 
+
+' proper way to use row when unknown
+INDIRECT("B"&ROW()),'MAR 2024 Demographics  '!B:N,13,FALSE)<>"",VLOOKUP(INDIRECT("B"&ROW()),'MAR 2024 Demographics  '!B:N,13,FALSE),VLOOKUP(INDIRECT("B"&ROW()),'MAR 2024 Demographics  '!B:N,12,FALSE))
+
+
