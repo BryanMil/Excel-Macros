@@ -8,3 +8,9 @@ LR = Cells(Rows.Count, 2).End(xlUp).Row
 ''Drop in var on sheet and drag to the last row
 wb1.Sheets("Sheet").Range("V2") = "=" & var21
 Range("V2").AutoFill Destination:=Range("V2:V" & LR5)
+
+
+'Move cursor down until empty cell is reached
+Do Until IsEmpty(ActiveCell)
+     ActiveCell.Offset(1, 0).Select
+Loop
