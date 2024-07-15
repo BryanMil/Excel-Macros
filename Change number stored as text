@@ -1,0 +1,4 @@
+With Worksheets("Sheet").Columns(5)
+     .NumberFormat = "0"
+     .Value = .Value
+End With
