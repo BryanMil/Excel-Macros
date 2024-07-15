@@ -1,0 +1,14 @@
+ 'Get path for desktop of user PC
+    Path = Environ("USERPROFILE") & "\Desktop"
+    Sheet1.Cells.Copy
+
+    'Create new workbook and past copied data in new workbook & save to desktop
+    Workbooks.Add (xlWBATWorksheet)
+    ActiveWorkbook.ActiveSheet.Paste
+    ActiveWorkbook.ActiveSheet.Name = "report"
+    ActiveWorkbook.SaveAs Filename:=Path & "\" & "report " & Format(CStr(Now()), "dd-mmm (hh.mm.ss AM/PM)") & ".xlsx"
+    ActiveWorkbook.Close SaveChanges:=True
+
+    Application.ScreenUpdating = True
+
+    MsgBox "Exported to Desktop"
